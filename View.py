@@ -1,8 +1,5 @@
 from Board import *
 
-def f(x):
-    return x * x
-
 def titleForFigure(f):
     if f is None:
         return "No"
