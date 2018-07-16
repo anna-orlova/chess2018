@@ -1,4 +1,5 @@
 from Board import *
+from Exceptions import InvalidPosition
 
 def titleForFigure(f):
     if f is None:
@@ -8,8 +9,8 @@ def titleForFigure(f):
 
 
 class View(object):
-    def __init__(self, Board):
-        self._board = Board
+    def __init__(self, board):
+        self._board = board
 
     def Show(self):
         print ("   A    B    C    D    E    F    G    H")
@@ -35,3 +36,24 @@ class View(object):
             print("_" * 40)
 
         print ("   A    B    C    D    E    F    G    H")
+
+    def Run(self):
+        self.Show()
+        while True:
+            move_from = raw_input("Move from:")
+            move_to = raw_input("Move_to:")
+            try:
+                self._board.Move_Figure(move_from, move_to)
+
+
+            except InvalidPosition:
+                print("Invalid input")
+                continue
+
+            self.Show()
+
+
+
+
+
+

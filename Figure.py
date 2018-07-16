@@ -1,7 +1,7 @@
 class Figure(object):
-    def __init__(self, symbol, color):
+    def __init__(self, symbol, player):
         self.SetSymbol(symbol)
-        self.SetColor(color)
+        self.SetPlayer(player)
 
     def SetSymbol(self, symbol):
         symbol_valid = list(["T","N","B","Q","K","P"])
@@ -10,45 +10,42 @@ class Figure(object):
         else:
             raise ValueError("Choose the right name for a figure: %s is not valid " % (symbol))
 
-    def SetColor(self, color):
-        color_valid = list(["W", "B"])
-        if color in color_valid:
-            self.__color = color
-        else:
-            raise ValueError("Choose the right color for a figure: %s is not valid " % (color))
+    def SetPlayer(self, player):
+        self.__player = player
 
     def GetSymbol(self):
         return self.__symbol
 
     def GetColor(self):
-        return self.__color
+        return self.__player.GetColor()
 
 
 class Pawn(Figure):
-    def __init__(self, color):
-        super(Pawn,self).__init__("P", color)
+    def __init__(self, player):
+        super(Pawn, self).__init__("P", player)
+#        Figure.__init__(self, "P", player)
 
 
 class Tor(Figure):
-    def __init__(self, color):
-        super(Tor, self).__init__("T", color)
+    def __init__(self, player):
+        super(Tor, self).__init__("T", player)
 
 
 class Knight(Figure):
-    def __init__(self, color):
-        super(Knight, self).__init__("N", color)
+    def __init__(self, player):
+        super(Knight, self).__init__("N", player)
 
 
 class Bishop(Figure):
-    def __init__(self, color):
-        super(Bishop, self).__init__("B", color)
+    def __init__(self, player):
+        super(Bishop, self).__init__("B", player)
 
 
 class Queen(Figure):
-    def __init__(self, color):
-        super(Queen, self).__init__("Q", color)
+    def __init__(self, player):
+        super(Queen, self).__init__("Q", player)
 
 
 class King(Figure):
-    def __init__(self, color):
-        super(King, self).__init__("K", color)
+    def __init__(self, player):
+        super(King, self).__init__("K", player)

@@ -5,5 +5,5 @@ board = Board()
 board.Initiate_StartBoard()
 
 view = View(board)
-view.Show()
-print (board.Figure_At("H1"))
+view.Run()
+#print (board.Figure_At("H1"))
