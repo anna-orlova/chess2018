@@ -19,11 +19,26 @@ class Figure(object):
     def GetColor(self):
         return self.__player.GetColor()
 
+    def Possible_Moves(self, board, position):  #abstract method
+        pass
+#       create a list with all fields A1,A2,...,B1,B2,...
+#        return self.board
+
+
 
 class Pawn(Figure):
     def __init__(self, player):
         super(Pawn, self).__init__("P", player)
 #        Figure.__init__(self, "P", player)
+
+    def Possible_Moves(self, board, position):
+        i_position = int(position[1])
+        if self.__player.Is_White():
+            return position[0] + str(i_position+1)
+        else:
+            return position[0] + str(i_position-1)
+
+
 
 
 class Tor(Figure):

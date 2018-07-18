@@ -11,3 +11,16 @@ class Player(object):
 
     def GetColor(self):
         return self.__color
+
+    def Is_White(self):
+        if self.__color == "W": # oder self.__color == "W"
+            return True
+        else:
+            return False
+
+    def __eq__(self, other):
+        return self.GetColor() == other.GetColor()
+
+    def __ne__(self, other):
+        return not (self == other) # return (self!=other)
+

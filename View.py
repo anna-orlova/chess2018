@@ -1,5 +1,6 @@
 from Board import *
-from Exceptions import InvalidPosition
+from Player import *
+from Exceptions import *
 
 def titleForFigure(f):
     if f is None:
@@ -36,6 +37,8 @@ class View(object):
             print("_" * 40)
 
         print ("   A    B    C    D    E    F    G    H")
+        b = self._board.Get_Current_Player().GetColor()
+        print ("Current Player:", b)
 
     def Run(self):
         self.Show()
@@ -45,11 +48,19 @@ class View(object):
             try:
                 self._board.Move_Figure(move_from, move_to)
 
-
             except InvalidPosition:
                 print("Invalid input")
                 continue
 
+            except NoFigure:
+                print("No Figure")
+                continue
+
+            except WrongFigureColor:
+                print ("Wrong Figure Color")
+                continue
+
+           # self._board.Toggle_Player()
             self.Show()
 
 
