@@ -94,6 +94,10 @@ class Board(object):
         if self.Get_Current_Player().GetColor() != self.Figure_At(position).GetColor():
             raise WrongFigureColor
 
+        a_figure = self.Figure_At(position)
+        if not new_position in a_figure.Possible_Moves(self, position):
+            raise WrongMove
+
         self._Add_Figure(self.Figure_At(position), new_position)
         self.data[position] = None
         self.Toggle_Player()

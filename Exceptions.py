@@ -10,5 +10,9 @@ class WrongFigureColor(Exception):
     def __init__(self):
         super(WrongFigureColor, self).__init__()
 
+class WrongMove(Exception):
+    def __init__(self):
+        super(WrongMove, self).__init__()
+
 
 

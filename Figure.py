@@ -1,3 +1,11 @@
+import numpy
+from CoordinatesToSymbols import CoordinateToSymbol, SymbolToCoordinate
+
+# Use numpy arrays (like matlab arrays)
+# a = numpy.zeros((8,8))
+# print(a[0,0])
+# a[1,1] = 2
+
 class Figure(object):
     def __init__(self, symbol, player):
         self.SetSymbol(symbol)
@@ -21,6 +29,8 @@ class Figure(object):
 
     def Possible_Moves(self, board, position):  #abstract method
         pass
+
+
 #       create a list with all fields A1,A2,...,B1,B2,...
 #        return self.board
 
@@ -64,3 +74,6 @@ class Queen(Figure):
 class King(Figure):
     def __init__(self, player):
         super(King, self).__init__("K", player)
+
+a = SymbolToCoordinate("A1")
+print (a)
