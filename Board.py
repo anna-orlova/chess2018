@@ -1,8 +1,7 @@
 from Figure import *
 from Player import Player
-from Exceptions import InvalidPosition
-from Exceptions import NoFigure
-from Exceptions import WrongFigureColor
+from Exceptions import *
+
 
 class Board(object):
     def __init__(self, player_one, player_two):
@@ -16,8 +15,8 @@ class Board(object):
 
         List_letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
         List_numbers = [1, 2, 3, 4, 5, 6, 7, 8]
-        self.data = {} # empty dictionary
-        current_field = [] # empty list
+        self.data = {}# empty dictionary
+        current_field = []# empty list
         for item1 in List_letters:
             for item2 in List_numbers:
                 current_field.append(item1 + str(item2))
@@ -95,7 +94,8 @@ class Board(object):
             raise WrongFigureColor
 
         a_figure = self.Figure_At(position)
-        if not new_position in a_figure.Possible_Moves(self, position):
+        pos_move = a_figure.Possible_Moves(self, position)
+        if not new_position in pos_move:
             raise WrongMove
 
         self._Add_Figure(self.Figure_At(position), new_position)

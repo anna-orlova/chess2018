@@ -60,6 +60,10 @@ class View(object):
                 print ("Wrong Figure Color")
                 continue
 
+            except WrongMove:
+                print("Wrong Move")
+                continue
+
            # self._board.Toggle_Player()
             self.Show()
 

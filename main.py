@@ -7,4 +7,4 @@ board.Initiate_StartBoard()
 
 view = View(board)
 view.Run()
-#print (board.Figure_At("H1"))
+

@@ -1,10 +1,5 @@
 import numpy
-from CoordinatesToSymbols import CoordinateToSymbol, SymbolToCoordinate
-
-# Use numpy arrays (like matlab arrays)
-# a = numpy.zeros((8,8))
-# print(a[0,0])
-# a[1,1] = 2
+from CoordinatesToSymbols import CoordinateToSymbol, SymbolToCoordinate, CoordinateArrayToSymbol
 
 class Figure(object):
     def __init__(self, symbol, player):
@@ -28,20 +23,69 @@ class Figure(object):
         return self.__player.GetColor()
 
     def Possible_Moves(self, board, position):  #abstract method
-        pass
-
-
-#       create a list with all fields A1,A2,...,B1,B2,...
-#        return self.board
+        #pass
+        list_pos_moves = []
+        list_pos_cooordin = []
+        List_letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        List_numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+        for i in List_letters:
+            for j in List_numbers:
+                pos = i + str(j)
+                list_pos_moves.append(pos)
+       # for item in list_pos_moves:
+            #list_pos_cooordin.append(SymbolToCoordinate(item))
+        return list_pos_moves
 
 
 
 class Pawn(Figure):
     def __init__(self, player):
         super(Pawn, self).__init__("P", player)
-#        Figure.__init__(self, "P", player)
+        self.__player = player
+#       Figure.__init__(self, "P", player)
 
-    def Possible_Moves(self, board, position):
+    def Possible_Moves(self, board,  position):
+        all_possible_coordinates = []
+        for c in ["A", "B", "C", "D", "E", "F", "G", "H"]:
+            for i in range(1, 9):
+                symbol = c + str(i)
+                a = SymbolToCoordinate(symbol)
+                all_possible_coordinates.append(a)
+
+        matrix = numpy.zeros((8, 8))
+        list_pos_vert = []
+        current_coordinate = SymbolToCoordinate(position)
+        j_vert = current_coordinate[0]
+        k_hor = current_coordinate[1]
+        list_pos_vert.append(j_vert)
+        list_pos_vert.append(j_vert + 1)
+        list_pos_vert.append(j_vert - 1)
+
+        if self.__player.Is_White():
+            for item in list_pos_vert:
+                matrix[item, k_hor + 1] = 1
+                if k_hor == 1:
+                    matrix[j_vert, k_hor+2] = 1
+
+        if not self.__player.Is_White():
+            for item in list_pos_vert:
+                matrix[item, k_hor - 1] = 1
+                if k_hor == 6:
+                    matrix[j_vert, k_hor - 2] = 1
+
+        list_symbols = CoordinateArrayToSymbol(matrix)
+        return list_symbols
+
+
+
+
+
+
+
+
+
+
+        i_position = SymbolToCoordinate()
         i_position = int(position[1])
         if self.__player.Is_White():
             return position[0] + str(i_position+1)
@@ -75,5 +119,4 @@ class King(Figure):
     def __init__(self, player):
         super(King, self).__init__("K", player)
 
-a = SymbolToCoordinate("A1")
-print (a)
+
