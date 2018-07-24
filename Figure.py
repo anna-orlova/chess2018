@@ -1,5 +1,8 @@
 import numpy
+import copy
 from CoordinatesToSymbols import CoordinateToSymbol, SymbolToCoordinate, CoordinateArrayToSymbol
+from Board import *
+from Player import *
 
 class Figure(object):
     def __init__(self, symbol, player):
@@ -15,6 +18,9 @@ class Figure(object):
 
     def SetPlayer(self, player):
         self.__player = player
+
+    def GetPlayer(self):
+        return self.__player
 
     def GetSymbol(self):
         return self.__symbol
@@ -41,10 +47,9 @@ class Figure(object):
 class Pawn(Figure):
     def __init__(self, player):
         super(Pawn, self).__init__("P", player)
-        self.__player = player
 #       Figure.__init__(self, "P", player)
 
-    def Possible_Moves(self, board,  position):
+    def Possible_Moves(self, board, position):
         all_possible_coordinates = []
         for c in ["A", "B", "C", "D", "E", "F", "G", "H"]:
             for i in range(1, 9):
@@ -60,38 +65,60 @@ class Pawn(Figure):
         list_pos_vert.append(j_vert)
         list_pos_vert.append(j_vert + 1)
         list_pos_vert.append(j_vert - 1)
+        print("Ps0", position[0])
 
-        if self.__player.Is_White():
+        for item in list_pos_vert:
+            if item > 7 or item < 0:
+                list_pos_vert.remove(item)
+
+        if self.GetPlayer().Is_White():
+            # !!! Interpretor will replaces self to the Pawn, since we are in the Pawn class
+            ##X = board.Figure_At(CoordinateToSymbol((j_vert+1, k_hor)))
+            #if X == "B":
             for item in list_pos_vert:
                 matrix[item, k_hor + 1] = 1
                 if k_hor == 1:
-                    matrix[j_vert, k_hor+2] = 1
+                    matrix[j_vert, k_hor + 2] = 1
+            list_symbols = CoordinateArrayToSymbol(matrix)
+            list_symbols_copy = copy.deepcopy(list_symbols)
+            for item in list_symbols_copy:
+                fig = board.Figure_At(item)
+                if fig is not None:
+                    if fig.GetColor() == "W":
+                        list_symbols.remove(item)
+                    if position[0] == item[0]:
+                        if fig.GetColor() == "B":
+                            list_symbols.remove(item)
+                    if position[0] != item[0]:
+                        if fig.GetColor() != "B":
+                            list_symbols.remove(item)
+                else:
+                    if position[0] != item[0]:
+                        list_symbols.remove(item)
 
-        if not self.__player.Is_White():
+        if self.GetPlayer().Is_Black():
             for item in list_pos_vert:
                 matrix[item, k_hor - 1] = 1
                 if k_hor == 6:
                     matrix[j_vert, k_hor - 2] = 1
-
-        list_symbols = CoordinateArrayToSymbol(matrix)
+            list_symbols = CoordinateArrayToSymbol(matrix)
+            list_symbols_copy = copy.deepcopy(list_symbols)
+            for item in list_symbols_copy:
+                fig = board.Figure_At(item)
+                if fig is not None:
+                    if fig.GetColor() == "B":
+                        list_symbols.remove(item)
+                    if position[0] == item[0]:
+                        if fig.GetColor() == "W":
+                            list_symbols.remove(item)
+                    else:
+                        if fig.GetColor() != "W":
+                            list_symbols.remove(item)
+                else:
+                    if position[0] != item[0]:
+                        list_symbols.remove(item)
+        print (list_symbols)
         return list_symbols
-
-
-
-
-
-
-
-
-
-
-        i_position = SymbolToCoordinate()
-        i_position = int(position[1])
-        if self.__player.Is_White():
-            return position[0] + str(i_position+1)
-        else:
-            return position[0] + str(i_position-1)
-
 
 
 

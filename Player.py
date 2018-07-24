@@ -18,6 +18,9 @@ class Player(object):
         else:
             return False
 
+    def Is_Black(self):
+        return not self.Is_White()
+
     def __eq__(self, other):
         return self.GetColor() == other.GetColor()
 
