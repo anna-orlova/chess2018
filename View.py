@@ -1,3 +1,4 @@
+from CoordinatesToSymbols import *
 from Board import *
 from Player import *
 from Exceptions import *
@@ -66,6 +67,8 @@ class View(object):
 
            # self._board.Toggle_Player()
             self.Show()
+            print (BoardToMatrix(self._board)[::-1,:])
+
 
 
 

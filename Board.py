@@ -83,7 +83,7 @@ class Board(object):
 
     def Move_Figure(self, position, new_position):
 
-        if (self.Is_Valid_Position(position) == False) or (self.Is_Valid_Position(new_position) == False):
+        if (self.Is_Valid_Position(position) is False) or (self.Is_Valid_Position(new_position) is False):
             # current_color = self.Figure_At(position).GetColor()
             raise InvalidPosition
 
