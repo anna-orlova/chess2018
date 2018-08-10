@@ -3,8 +3,8 @@ from Exceptions import *
 class Player_Turn(object):
 
     def __init__(self, Move_start=None, Move_end=None):
-        SetMove_start()
-        SetMove_end()
+        self.SetMove_start(Move_start)
+        self.SetMove_end(Move_end)
 
     def SetMove_start(self, start):
         self.__Move_start = start
