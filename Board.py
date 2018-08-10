@@ -16,10 +16,10 @@ class Board(object):
         List_letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
         List_numbers = [1, 2, 3, 4, 5, 6, 7, 8]
         self.data = {}# empty dictionary
-        current_field = []# empty list
+        #current_field = []# empty list
         for item1 in List_letters:
             for item2 in List_numbers:
-                current_field.append(item1 + str(item2))
+                #current_field.append(item1 + str(item2))
                 self.data[item1 + str(item2)] = None
 
     def Initiate_StartBoard(self):

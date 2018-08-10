@@ -53,3 +53,9 @@ def BoardToMatrix(board):
                     matrix[a[0], a[1]] = COLOR_BLACK
     return matrix
 
+def List_Pos_Moves_to_List_symbols(list_pos_moves):
+    list_pos_symbols = []
+    for item in list_pos_moves:
+        list_pos_symbols.append(CoordinateToSymbol(item))
+    return list_pos_symbols
+
