@@ -28,7 +28,10 @@ class View_Gui(QDialog):
             i = 7 - SymbolToCoordinate(item[0])[0]
             j = SymbolToCoordinate(item[0])[1]
             self.layout.addWidget(button, i, j)
+
+        #self.layout.addWidget
         self.setLayout(self.layout)
+        self.paint_Figures()
 
         for item in self.buttons.items():
 #            if symbol in self.buttons.values():
@@ -37,8 +40,53 @@ class View_Gui(QDialog):
                          lambda symbol=item[0]:
                          self.handleButtonClick(symbol))
 
+
+
     def handleButtonClick(self, symbol):
-        print (symbol)
+        self.player_turn.addInput(symbol)
+        if self.player_turn.isTurnComplete() == True:
+            start = self.player_turn.GetMove_start()
+            end = self.player_turn.GetMove_end()
+            try:
+                self._board.Move_Figure(start, end)
+
+            except InvalidPosition:
+                print("Invalid position")
+                pass
+
+            except WrongFigureColor:
+                print("Wrong Figure Color")
+                pass
+
+            except NoFigure:
+                print("No Figure")
+                pass
+
+            except WrongMove:
+                print("Wrong Move")
+                pass
+
+            self.player_turn.Reset()
+            self.paint_Figures()
+
+    def titleForFigure(self, f):
+        if f is None:
+            return "No"
+        else:
+            return f.GetSymbol() + f.GetColor()  # return a string object
+
+    def paint_Figures(self):
+        for item in self.buttons.items():
+            button = item[1]
+            key = item[0]
+            figure = self._board.Figure_At(key)
+            if figure is None:
+                button.setText("")
+            else:
+                title = self.titleForFigure(figure)
+                button.setText(title)
+
+
 
 app = QApplication(sys.argv)
 board = Board(Player("W"), Player("B"))
