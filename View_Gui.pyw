@@ -34,7 +34,7 @@ class View_Gui(QDialog):
         for item in self.numbers.items():
             i = item[0]
             name = item[1]
-            self.layout.addWidget(name, i, 0)
+            self.layout.addWidget(name, 9-i, 0)
 
         for item, letter in enumerate(List_letters):
             self.letters[item] = QLabel(letter)
@@ -107,11 +107,12 @@ class View_Gui(QDialog):
             button = item[1]
             key = item[0]
             figure = self._board.Figure_At(key)
-            if figure is None:
-                button.setText("")
-            else:
-                title = self.titleForFigure(figure)
-                button.setText(title)
+            button.setFigure(figure)
+            #if figure is None:
+             #   button.setText("")
+            #else:
+             #   title = self.titleForFigure(figure)
+              #  button.setText(title)
 
 
 

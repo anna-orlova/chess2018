@@ -13,8 +13,8 @@ class GUIChessField(QLabel):
             self.setText(" ")
         else:
             color = str(figure.GetColor())
-            symbol = str(figure.GetSymbol())
-            self.setText(color + symbol)
+            sym = str(figure.GetSymbol())
+            self.setText(color + sym)
 
     def mousePressEvent(self, QMouseEvent):
         self.emit(SIGNAL("clicked()"))
