@@ -108,6 +108,7 @@ class View_Gui(QDialog):
             key = item[0]
             figure = self._board.Figure_At(key)
             button.setFigure(figure)
+            button.paintEvent(self)
             #if figure is None:
              #   button.setText("")
             #else:
