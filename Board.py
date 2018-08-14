@@ -58,9 +58,14 @@ class Board(object):
     def Get_Current_Player(self):
         return self._current_player
 
-
     def _Add_Figure(self, figure, position):
         self.data[position] = figure
+
+    def Position_of_Figure(self, figure):
+        for item in self.data.keys():
+            if self.Figure_At(item) == figure:
+                return item
+
 
     def Figure_At(self, position):
         return self.data[position]
@@ -88,7 +93,7 @@ class Board(object):
             raise InvalidPosition
 
         if self.Figure_At(position) is None:
-            raise NoFigure
+            raise EmptyField
 
         if self.Get_Current_Player().GetColor() != self.Figure_At(position).GetColor():
             raise WrongFigureColor
@@ -102,6 +107,51 @@ class Board(object):
         self.data[position] = None
         self.Toggle_Player()
         #current_figure = Figure.GetColor()
+
+    def is_King_threatened(self, player):
+        self._player = player
+        color = self._player.GetColor()
+        current_King = King(color)
+        position = self.Position_of_Figure(current_King)
+        current_coordinate = SymbolToCoordinate(position)
+        j_vert = current_coordinate[1]
+        k_hor = current_coordinate[0]
+        matrix = BoardToMatrix(self.data)
+        list_pos_hor_points = []
+        if Figure.GetPlayer(player).Is_White():
+            Active = COLOR_WHITE
+            Passive = COLOR_BLACK
+        else:
+            Active = COLOR_BLACK
+            Passive = COLOR_WHITE
+
+        k = k_hor + 1
+        while k < 8:
+            if matrix[k, j_vert] != Active:
+                if matrix[k, j_vert] != Passive:
+                    list_pos_hor_moves.append((k, j_vert))
+                    k += 1
+                else:
+                    list_pos_hor_moves.append((k, j_vert))
+                    break
+            else:
+                break
+        k = k_hor - 1
+        while k >= 0:
+            if matrix[k, j_vert] != Active:
+                if matrix[k, j_vert] != Passive:
+                    list_pos_hor_moves.append((k, j_vert))
+                    k -= 1
+                else:
+                    list_pos_hor_moves.append((k, j_vert))
+                    break
+            else:
+                break
+        return list_pos_hor_moves
+
+
+
+
 
 
 

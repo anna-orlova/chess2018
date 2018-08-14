@@ -29,6 +29,12 @@ class Figure(object):
     def GetColor(self):
         return self.__player.GetColor()
 
+    def __eq__(self, other):
+        return self.GetPlayer() == other.GetPlayer() and self.GetSymbol() == other.GetSymbol()
+
+    def __ne__(self, other):
+        return not (self == other) # return (self!=other)
+
     def Possible_Moves(self, board, position):  # abstract method
         # pass
         list_pos_symbols = []
