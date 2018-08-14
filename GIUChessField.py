@@ -33,7 +33,7 @@ class GUIChessField(QLabel):
             index = color + sym
             self.setActive_svg(self.Files_svg[index])
             self.setText(color + sym)
-            print(self.Files_svg[index])
+           # print(self.Files_svg[index])
 
     def mousePressEvent(self, QMouseEvent):
         self.emit(SIGNAL("clicked()"))

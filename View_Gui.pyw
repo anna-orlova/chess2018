@@ -80,7 +80,7 @@ class View_Gui(QDialog):
                 print("Wrong Figure Color")
                 pass
 
-            except NoFigure:
+            except EmptyField:
                 print("No Figure")
                 pass
 
@@ -108,7 +108,7 @@ class View_Gui(QDialog):
             key = item[0]
             figure = self._board.Figure_At(key)
             button.setFigure(figure)
-            button.paintEvent(self)
+            #button.paintEvent(self)
             #if figure is None:
              #   button.setText("")
             #else:

@@ -43,7 +43,7 @@ class View(object):
                 print("Invalid input")
                 continue
 
-            except NoFigure:
+            except EmptyField:
                 print("No Figure")
                 continue
 
